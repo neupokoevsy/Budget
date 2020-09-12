@@ -105,6 +105,28 @@ class dataService {
         }
     
     
+    private let newCategories = [
+    Categories(title: "Alcohol", imageName: "alcohol.png"),
+    Categories(title: "Apps", imageName: "apps.png"),
+    Categories(title: "Bad Habits", imageName: "badHabit.png"),
+    Categories(title: "Bars", imageName: "bars.png"),
+    Categories(title: "Education", imageName: "education.png"),
+    Categories(title: "Entertainment", imageName: "entertainment.png"),
+    Categories(title: "Fast Food", imageName: "fastFood.png"),
+    Categories(title: "Gas", imageName: "gas.png"),
+    Categories(title: "Kids", imageName: "kids.png"),
+    Categories(title: "Music", imageName: "music.png"),
+    Categories(title: "Parking", imageName: "parking.png"),
+    Categories(title: "Pets", imageName: "pets.png"),
+    Categories(title: "Rent", imageName: "rent.png"),
+    Categories(title: "Restaurants", imageName: "restaurant.png"),
+    Categories(title: "Water", imageName: "waterCooler.png")
+    ]
+    
+    func getNewCategories() -> [Categories] {
+        return newCategories
+    }
+    
     //*************************
     //MARK: Saving to CoreData
     //*************************
