@@ -14,6 +14,7 @@
 		CE223A9624F57F5300B48ABC /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE223A9524F57F5300B48ABC /* CategoryModel.swift */; };
 		CE223A9824F58C1000B48ABC /* ExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE223A9724F58C1000B48ABC /* ExpenseVC.swift */; };
 		CE223A9A24F58CD000B48ABC /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE223A9924F58CD000B48ABC /* CalendarViewCell.swift */; };
+		CE4962D8250D2B8B0076DCCD /* addNewCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4962D7250D2B8B0076DCCD /* addNewCategoryVC.swift */; };
 		CE5B7B0424F57D4400F10181 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B7B0324F57D4400F10181 /* AppDelegate.swift */; };
 		CE5B7B0624F57D4400F10181 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B7B0524F57D4400F10181 /* SceneDelegate.swift */; };
 		CE5B7B0824F57D4400F10181 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B7B0724F57D4400F10181 /* MainVC.swift */; };
@@ -31,6 +32,7 @@
 		CE223A9524F57F5300B48ABC /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		CE223A9724F58C1000B48ABC /* ExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseVC.swift; sourceTree = "<group>"; };
 		CE223A9924F58CD000B48ABC /* CalendarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
+		CE4962D7250D2B8B0076DCCD /* addNewCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addNewCategoryVC.swift; sourceTree = "<group>"; };
 		CE5B7B0024F57D4400F10181 /* Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Budget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE5B7B0324F57D4400F10181 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE5B7B0524F57D4400F10181 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				CE223A9724F58C1000B48ABC /* ExpenseVC.swift */,
 				A3FB237224FEDB4300B986C5 /* IncomeVC.swift */,
 				A358C93524FEDFBA00823974 /* AddRecordVC.swift */,
+				CE4962D7250D2B8B0076DCCD /* addNewCategoryVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				CE223A9424F57EC300B48ABC /* DataService.swift in Sources */,
 				CE5B7B0424F57D4400F10181 /* AppDelegate.swift in Sources */,
 				CE5B7B0E24F57D4400F10181 /* Budget.xcdatamodeld in Sources */,
+				CE4962D8250D2B8B0076DCCD /* addNewCategoryVC.swift in Sources */,
 				CE223A9824F58C1000B48ABC /* ExpenseVC.swift in Sources */,
 				A358C93624FEDFBA00823974 /* AddRecordVC.swift in Sources */,
 				CE223A9A24F58CD000B48ABC /* CalendarViewCell.swift in Sources */,

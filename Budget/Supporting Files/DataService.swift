@@ -83,7 +83,6 @@ class dataService {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
             let sort = NSSortDescriptor(key: "title", ascending: true)
             fetchRequest.sortDescriptors = [sort]
-
             do {
                 categories = try managedContext.fetch(fetchRequest) as! [Category]
                 print("Fetched from CoreData Successfully")

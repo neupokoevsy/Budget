@@ -39,7 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Categories(title: "Utility Payments", imageName: "utility_payments.png"),
             Categories(title: "Vacation", imageName: "vacation.png"),
             Categories(title: "Work", imageName: "work.png"),
-            Categories(title: "Other", imageName: "other.png")
+            Categories(title: "Other", imageName: "other.png"),
+            Categories(title: "New Category", imageName: "newCategory.png")
             ]
             let managedContext = (appDelegate?.persistentContainer.viewContext)!
             let entity = NSEntityDescription.entity(forEntityName: "Category", in: managedContext)!

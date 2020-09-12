@@ -98,12 +98,12 @@ class AddRecordVC: UIPageViewController, UIPageViewControllerDelegate, UIPageVie
     //***********************************************
     func configurePageControl() {
         //Total number of pages that are available is based on how manu available colors we have
-        pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.maxY - 110, width: UIScreen.main.bounds.width, height: 50))
+        pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.maxY - 100, width: UIScreen.main.bounds.width, height: 50))
         self.pageControl.numberOfPages = orderedViewControllers.count
         self.pageControl.currentPage = 0
-        self.pageControl.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.pageControl.pageIndicatorTintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        self.pageControl.currentPageIndicatorTintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.pageControl.tintColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        self.pageControl.pageIndicatorTintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.pageControl.currentPageIndicatorTintColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         self.view.addSubview(pageControl)
     }
     

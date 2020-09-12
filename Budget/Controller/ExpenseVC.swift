@@ -19,12 +19,24 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     var selectedDate: Int = 0
     var currentDate: Int = 0
     var categories: [Category] = []
-
+    var indexPathForFirstRow = IndexPath(row: 0, section: 0)
     
     
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var CalendarCollectionView: UICollectionView!
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
     @IBOutlet weak var windowNameLabel: UILabel!
+    
+    
+    override func viewDidLayoutSubviews() {
+        indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
+//        self.setSelectedItemFromScrollView(CalendarCollectionView)
+        self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+//        self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
+        
+    }
     
     
     override func viewDidLoad() {
@@ -33,33 +45,33 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         dataService.instance.fetchCoreDataObjects()
         categories = dataService.instance.categories
         print("Total categories \(categories.count)")
-        printAllCategories()
+//        printAllCategories()
 //        deleteAllCategories()
-
-        
-//        let category = dataService.instance.fillTheCategoriesWithInitialData(title: <#T##String#>, imageName: <#T##String#>)
-        
         dates = dataService.instance.arrayOfDates()
         
 //        let colView = CalendarCollectionView
 //        print(colView?.frame.size)
         
         currentDate = dataService.instance.currentDateIndex
-        let indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
-        self.setSelectedItemFromScrollView(CalendarCollectionView)
-        self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
-        self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
+        
+                indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
+        print("IndexPATHForFirstRow \(indexPathForFirstRow)")
+                self.setSelectedItemFromScrollView(CalendarCollectionView)
+//                self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+                self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
         
 
-//        print("Current date index is: \(currentDate)")
     }
     
-        func printAllCategories() {
-            for category in categories {
-                print(category.imageName as! String)
-                print(category.title as! String)
-            }
-        }
+
+    
+    
+//        func printAllCategories() {
+//            for category in categories {
+//                print(category.imageName as! String)
+//                print(category.title as! String)
+//            }
+//        }
     
         func deleteAllCategories() {
             guard let managedContext = appDelegate?.persistentContainer.viewContext
@@ -77,14 +89,13 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         }
     
         func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
-                let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: (scrollView.center.y + scrollView.contentOffset.y)-50)
+                let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: (scrollView.center.y + scrollView.contentOffset.y))
                 print(center)
                 let index = CalendarCollectionView.indexPathForItem(at: center)
                 if index != nil {
                     CalendarCollectionView.scrollToItem(at: index!, at: .centeredHorizontally, animated: true)
                     self.CalendarCollectionView.selectItem(at: index, animated: true, scrollPosition: [])
                     self.selectedDate = (index?.row)!
-//                    print("Selected date index is: \(selectedDate)")
                 }
         }
     
@@ -93,14 +104,19 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         windowNameLabel.text = "EXPENSE"
         windowNameLabel.textColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 0.7503301056)
         windowNameLabel.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        saveButton.layer.cornerRadius = 5
     }
     
     
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let dates = dataService.instance.arrayOfDates()
-        return dates.count
+        if collectionView == CalendarCollectionView {
+            let dates = dataService.instance.arrayOfDates()
+            return dates.count
+        } else {
+            return categories.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -117,10 +133,24 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == CalendarCollectionView {
         print("Selected item at indexPath \(indexPath.row)")
         let selectedDate = dates[indexPath.row]
-        let selectedWeekDay = weekDays[indexPath.row]
-        print("Date chosen is \(selectedDate), weekday is \(selectedWeekDay)")
+//        let selectedWeekDay = weekDays[indexPath.row]
+        print("Date chosen is \(selectedDate)")
+        } else {
+            let category = categories[indexPath.row]
+            print("Selected category is: \(category.title!)")
+            if category.title! == "New Category" {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let addNewCategoryVc = storyboard.instantiateViewController(withIdentifier: "addNewCategoryVC") as! addNewCategoryVC
+                self.present(addNewCategoryVc, animated: true) 
+            }
+        }
+    }
+    
+    func newVc(viewController: String) -> UIViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController)
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
