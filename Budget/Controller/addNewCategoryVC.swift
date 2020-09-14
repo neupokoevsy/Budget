@@ -8,11 +8,12 @@
 
 import UIKit
 
-class addNewCategoryVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class addNewCategoryVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
 
     
 
     
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var newCategoriesCollectionView: UICollectionView!
     @IBOutlet weak var newCategoryNameTextField: UITextField!
     
@@ -22,6 +23,11 @@ class addNewCategoryVC: UIViewController, UICollectionViewDelegate, UICollection
         
         let categories = dataService.instance.getNewCategories()
         print(categories)
+        addButton.layer.cornerRadius = 5
+        self.hideKeyboardWhenTappedAround()
+
+
+        
 
         // Do any additional setup after loading the view.
     }
@@ -44,6 +50,16 @@ class addNewCategoryVC: UIViewController, UICollectionViewDelegate, UICollection
         print(category.title)
         newCategoryNameTextField.placeholder = category.title
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func dismiss(_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
 
     /*
     // MARK: - Navigation

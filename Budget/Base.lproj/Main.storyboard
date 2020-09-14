@@ -158,6 +158,9 @@
                                         <rect key="frame" x="0.0" y="208.5" width="335" height="34"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="c6t-AX-3lr" id="CeV-nl-QAY"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -251,6 +254,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="CaQ-g9-TfM" id="YMl-gS-Ehj"/>
+                                </connections>
                             </textField>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LkD-tU-iSa">
                                 <rect key="frame" x="20" y="57.5" width="335" height="80"/>
@@ -353,19 +359,20 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="newCategoryCell" id="am0-RF-6Un" customClass="NewCategoryCollectionViewCell" customModule="Budget" customModuleProvider="target">
                                         <rect key="frame" x="8" y="8" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xO2-s5-btO">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xO2-s5-btO">
                                             <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cPw-Hx-NHs">
-                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cPw-Hx-NHs">
+                                                    <rect key="frame" x="8" y="8" width="64" height="64"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="cPw-Hx-NHs" firstAttribute="leading" secondItem="xO2-s5-btO" secondAttribute="leading" id="3xJ-qG-qC8"/>
-                                                <constraint firstAttribute="trailing" secondItem="cPw-Hx-NHs" secondAttribute="trailing" id="C5t-KB-SrU"/>
-                                                <constraint firstAttribute="bottom" secondItem="cPw-Hx-NHs" secondAttribute="bottom" id="wVJ-T6-PIW"/>
-                                                <constraint firstItem="cPw-Hx-NHs" firstAttribute="top" secondItem="xO2-s5-btO" secondAttribute="top" id="yYH-Fr-liE"/>
+                                                <constraint firstItem="cPw-Hx-NHs" firstAttribute="leading" secondItem="xO2-s5-btO" secondAttribute="leadingMargin" id="9Km-U1-NwZ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cPw-Hx-NHs" secondAttribute="trailing" id="FqT-EB-bky"/>
+                                                <constraint firstItem="cPw-Hx-NHs" firstAttribute="top" secondItem="xO2-s5-btO" secondAttribute="topMargin" id="LOQ-1s-0zj"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="cPw-Hx-NHs" secondAttribute="bottom" id="Xdv-JP-Ev9"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
@@ -385,21 +392,41 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="9MM-XV-pXm" id="QTb-fE-OC0"/>
+                                </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKU-88-Let">
+                                <rect key="frame" x="20" y="567" width="335" height="50"/>
+                                <color key="backgroundColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="Wjk-U3-ZuX"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Wyh-2S-3JP"/>
+                                    <constraint firstAttribute="height" constant="50" id="nMB-to-0Fh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                                <state key="normal" title="A D D">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="SQG-Jy-0Nt" firstAttribute="centerX" secondItem="DBx-Hd-MqC" secondAttribute="centerX" id="1Ig-8L-rlJ"/>
+                            <constraint firstItem="6nH-UH-tiK" firstAttribute="trailing" secondItem="OKU-88-Let" secondAttribute="trailing" constant="20" id="3zm-Oa-mYf"/>
                             <constraint firstItem="6nH-UH-tiK" firstAttribute="bottom" secondItem="9me-qy-1kl" secondAttribute="bottom" constant="205" id="7IN-Lf-qCy"/>
                             <constraint firstItem="9me-qy-1kl" firstAttribute="top" secondItem="SQG-Jy-0Nt" secondAttribute="bottom" constant="10" id="IP5-Ox-GSP"/>
+                            <constraint firstItem="OKU-88-Let" firstAttribute="leading" secondItem="6nH-UH-tiK" secondAttribute="leading" constant="20" id="QYs-j1-bXh"/>
                             <constraint firstItem="6nH-UH-tiK" firstAttribute="trailing" secondItem="SQG-Jy-0Nt" secondAttribute="trailing" constant="15" id="U9m-M3-WlX"/>
                             <constraint firstItem="SQG-Jy-0Nt" firstAttribute="leading" secondItem="6nH-UH-tiK" secondAttribute="leading" constant="15" id="Vab-Xh-XVs"/>
                             <constraint firstItem="SQG-Jy-0Nt" firstAttribute="top" secondItem="6nH-UH-tiK" secondAttribute="top" constant="20" id="c2h-wY-X4Q"/>
                             <constraint firstItem="9me-qy-1kl" firstAttribute="centerX" secondItem="DBx-Hd-MqC" secondAttribute="centerX" id="dDC-iO-Hqy"/>
+                            <constraint firstItem="6nH-UH-tiK" firstAttribute="bottom" secondItem="OKU-88-Let" secondAttribute="bottom" constant="50" id="vLr-QD-IDQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6nH-UH-tiK"/>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="OKU-88-Let" id="cke-xr-5oh"/>
                         <outlet property="newCategoriesCollectionView" destination="SQG-Jy-0Nt" id="ctU-Hl-glj"/>
                         <outlet property="newCategoryNameTextField" destination="9me-qy-1kl" id="dec-pE-EyY"/>
                     </connections>

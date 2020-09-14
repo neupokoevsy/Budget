@@ -31,6 +31,7 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
             self.setSelectedItemFromScrollView(CalendarCollectionView)
             self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
             self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
+            self.hideKeyboardWhenTappedAround()
 
 
             print("Current date index is: \(currentDate)")
@@ -99,3 +100,28 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
         
 
     }
+
+
+extension IncomeVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func dismiss(_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

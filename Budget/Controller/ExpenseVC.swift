@@ -44,11 +44,8 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         changeLabelStyle()
         dataService.instance.fetchCoreDataObjects()
         categories = dataService.instance.categories
-        print("Total categories \(categories.count)")
-//        printAllCategories()
-//        deleteAllCategories()
         dates = dataService.instance.arrayOfDates()
-        
+        self.hideKeyboardWhenTappedAround()
 //        let colView = CalendarCollectionView
 //        print(colView?.frame.size)
         
@@ -160,13 +157,18 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         setSelectedItemFromScrollView(CalendarCollectionView)
     }
-    
-    
-    
-    
 
-    
-    
-    
 
+}
+
+extension ExpenseVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func dismiss(_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
 }
