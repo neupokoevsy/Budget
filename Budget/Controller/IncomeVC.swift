@@ -16,6 +16,9 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     var selectedDate: Int = 0
     var currentDate: Int = 0
 
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var CalendarCollectionView: UICollectionView!
     @IBOutlet weak var windowNameLabel: UILabel!
     
@@ -25,7 +28,6 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
             dates = dataService.instance.arrayOfDates()
             currentDate = dataService.instance.currentDateIndex
             let indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
-            print(indexPathForFirstRow)
             self.setSelectedItemFromScrollView(CalendarCollectionView)
             self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
             self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
@@ -34,17 +36,25 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
             print("Current date index is: \(currentDate)")
         }
     
+    override func viewDidLayoutSubviews() {
+        let indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
+        self.setSelectedItemFromScrollView(CalendarCollectionView)
+        self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+        self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
+    }
+    
     func changeLabelStyle() {
         windowNameLabel.text = "INCOME"
         windowNameLabel.textColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
         windowNameLabel.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        saveButton.layer.cornerRadius = 5
     }
         
         
         
         
             func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
-                    let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: (scrollView.center.y + scrollView.contentOffset.y)-50)
+                    let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: (scrollView.center.y + scrollView.contentOffset.y))
                     print(center)
                     let index = CalendarCollectionView.indexPathForItem(at: center)
                     if index != nil {
@@ -75,8 +85,7 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             print("Selected item at indexPath \(indexPath.row)")
             let selectedDate = dates[indexPath.row]
-            let selectedWeekDay = weekDays[indexPath.row]
-            print("Date chosen is \(selectedDate), weekday is \(selectedWeekDay)")
+            print("Date chosen is \(selectedDate)")
         }
 
         func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
