@@ -38,6 +38,9 @@ class MainVC: UIViewController {
         addButton?.isHidden = false
         addButton!.setImage(UIImage(named: "AddButton_customImage.png"), for: .normal)
         addButton!.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "Records"
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
     }
 
             @objc func addButtonPressed () {

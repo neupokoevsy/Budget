@@ -205,8 +205,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OLR-br-thc" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wy4-QT-JAU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="wy4-QT-JAU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -388,7 +388,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of new category" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9me-qy-1kl">
                                 <rect key="frame" x="100" y="428" width="175" height="34"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="175" id="6yO-hT-54R"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="175" id="6yO-hT-54R"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
