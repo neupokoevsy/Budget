@@ -45,7 +45,9 @@ class AddRecordVC: UIPageViewController, UIPageViewControllerDelegate, UIPageVie
         
         }
     
-    
+    //******************************************************************
+    //MARK: PageVC Related code
+    //******************************************************************
         
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

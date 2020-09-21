@@ -22,8 +22,9 @@ class dataService {
     private(set) public var currentDateIndex: Int = 0
     public var categories: [Category] = []
 
-
+    //******************************************************************
     //MARK: Calendar related code
+    //******************************************************************
     
     func arrayOfDates() -> [String] {
         let today = Date()
@@ -69,12 +70,13 @@ class dataService {
         return nil
     }
     
-    //MARK: End of calendar related code
+
     
     
+    //******************************************************************
+    //MARK: Categories related code (CoreData)
+    //******************************************************************
     
-    
-//    MARK: Categories related code
         func fetchCategories(completion: (_ complete: Bool) -> ()) {
             guard let managedContext = appDelegate?.persistentContainer.viewContext
                 else {
@@ -104,6 +106,10 @@ class dataService {
             }
         }
     
+    //******************************************************************
+    //MARK: Available new categories only to select from
+    //******************************************************************
+    
     
     private let newCategories = [
     Categories(title: "Alcohol", imageName: "alcohol.png"),
@@ -126,14 +132,5 @@ class dataService {
     func getNewCategories() -> [Categories] {
         return newCategories
     }
-    
-    //*************************
-    //MARK: Saving to CoreData
-    //*************************
-    
-
-//    private let categories = [
-//        Categories(
-//    ]
     
 }

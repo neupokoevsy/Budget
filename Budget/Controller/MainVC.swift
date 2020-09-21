@@ -140,3 +140,19 @@ class MainVC: UIViewController {
 //}
 
 }
+
+//******************************************************************
+//MARK: Extension for all VC's to add gesture to dismiss keyboard
+//******************************************************************
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

@@ -25,7 +25,7 @@ class NewCategoryCollectionViewCell: UICollectionViewCell {
     
     func updateViews(category: Categories){
         newCategoryImage.image = UIImage(named: category.imageName)
-        
     }
+
     
 }

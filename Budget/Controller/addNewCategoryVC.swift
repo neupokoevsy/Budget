@@ -10,19 +10,27 @@ import UIKit
 
 class addNewCategoryVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
 
-    
+    //******************************************************************
+    //MARK: UI Outlets
+    //******************************************************************
 
     
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var newCategoriesCollectionView: UICollectionView!
     @IBOutlet weak var newCategoryNameTextField: UITextField!
     
+    //******************************************************************
+    //MARK: Variables used
+    //******************************************************************
+    
+    var newCategoryTitle: String? = ""
+    var newCategoryImage: String = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let categories = dataService.instance.getNewCategories()
-        print(categories)
         addButton.layer.cornerRadius = 5
         self.hideKeyboardWhenTappedAround()
 
@@ -31,6 +39,11 @@ class addNewCategoryVC: UIViewController, UICollectionViewDelegate, UICollection
 
         // Do any additional setup after loading the view.
     }
+    
+    
+    //******************************************************************
+    //MARK: CollectionView of new Categories to select from
+    //******************************************************************
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -49,7 +62,13 @@ class addNewCategoryVC: UIViewController, UICollectionViewDelegate, UICollection
         let category = dataService.instance.getNewCategories()[indexPath.row]
         print(category.title)
         newCategoryNameTextField.placeholder = category.title
+        newCategoryImage = category.imageName
     }
+    
+    
+    //******************************************************************
+    //MARK: Keyboard dismissal
+    //******************************************************************
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -60,7 +79,42 @@ class addNewCategoryVC: UIViewController, UICollectionViewDelegate, UICollection
         self.view.endEditing(true)
     }
     
-
+    
+    
+    @IBAction func addCategoryButton(_ sender: UIButton) {
+        newCategoryTitle = newCategoryNameTextField.text!
+        if newCategoryTitle != nil && newCategoryTitle != "" {
+            saveToCoreData()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Update"), object: nil)
+            dismiss(animated: true, completion: nil)
+        } else {
+            newCategoryNameTextField.placeholder = "You should enter a name for category"
+        }
+    }
+    
+    
+    //******************************************************************
+    //MARK: Saving new category to CoreData
+    //******************************************************************
+    
+    
+    func saveToCoreData() {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext
+            else {
+                return
+        }
+        let categoriesStored = Category(context: managedContext)
+        categoriesStored.imageName = newCategoryImage
+        categoriesStored.title = newCategoryTitle
+        do {
+            try managedContext.save()
+            print("Sucessfully saved new category!")
+        }
+        catch {
+            debugPrint("Could not save data. Error: \(error.localizedDescription)")
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

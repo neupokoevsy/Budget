@@ -10,11 +10,19 @@ import UIKit
 
 class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    //******************************************************************
+    //MARK: Variables used
+    //******************************************************************
+    
     var dates = [String]()
     var weekDays = [String]()
     var months = [String]()
     var selectedDate: Int = 0
     var currentDate: Int = 0
+    
+    //******************************************************************
+    //MARK: UI Outlets
+    //******************************************************************
 
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var amountTextField: UITextField!
@@ -44,6 +52,10 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
         self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
     }
     
+    //******************************************************************
+    //MARK: Again little UI Tweaks :)
+    //******************************************************************
+    
     func changeLabelStyle() {
         windowNameLabel.text = "INCOME"
         windowNameLabel.textColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
@@ -52,7 +64,9 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     }
         
         
-        
+    //******************************************************************
+    //MARK: Automatically select centered date
+    //******************************************************************
         
             func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
                     let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: (scrollView.center.y + scrollView.contentOffset.y))
@@ -65,12 +79,10 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
                         print("Selected date index is: \(selectedDate)")
                     }
             }
-//
-//
-//
-//
-//
-//
+    
+    //******************************************************************
+    //MARK: CollectionView related code
+    //******************************************************************
     
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             let dates = dataService.instance.arrayOfDates()
@@ -101,6 +113,10 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
 
     }
 
+//******************************************************************
+//MARK: Extension of IncomeViewController
+//******************************************************************
+
 
 extension IncomeVC: UITextFieldDelegate {
     
@@ -114,14 +130,4 @@ extension IncomeVC: UITextFieldDelegate {
     }
 }
 
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
 
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}

@@ -12,6 +12,10 @@ import CoreData
 
 
 class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    //******************************************************************
+    //MARK: Variables used
+    //******************************************************************
 
     var dates = [String]()
     var weekDays = [String]()
@@ -20,6 +24,11 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     var currentDate: Int = 0
     var categories: [Category] = []
     var indexPathForFirstRow = IndexPath(row: 0, section: 0)
+    
+    
+    //******************************************************************
+    //MARK: UI Outlets
+    //******************************************************************
     
     
     @IBOutlet weak var saveButton: UIButton!
@@ -32,10 +41,7 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     override func viewDidLayoutSubviews() {
         indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
-//        self.setSelectedItemFromScrollView(CalendarCollectionView)
         self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
-//        self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
-        
     }
     
     
@@ -45,30 +51,22 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         dataService.instance.fetchCoreDataObjects()
         categories = dataService.instance.categories
         dates = dataService.instance.arrayOfDates()
+        
         self.hideKeyboardWhenTappedAround()
-//        let colView = CalendarCollectionView
-//        print(colView?.frame.size)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(fetchCoreDataObjectsWithNotification(notification:)), name: NSNotification.Name(rawValue: "Update"), object: nil)
         currentDate = dataService.instance.currentDateIndex
-        
-                indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
+        indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
         print("IndexPATHForFirstRow \(indexPathForFirstRow)")
-                self.setSelectedItemFromScrollView(CalendarCollectionView)
-//                self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
-                self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
+        self.setSelectedItemFromScrollView(CalendarCollectionView)
+        self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
         
 
     }
     
-
     
-    
-//        func printAllCategories() {
-//            for category in categories {
-//                print(category.imageName as! String)
-//                print(category.title as! String)
-//            }
-//        }
+    //******************************************************************
+    //MARK: Delete after finishing the project
+    //******************************************************************
     
         func deleteAllCategories() {
             guard let managedContext = appDelegate?.persistentContainer.viewContext
@@ -85,6 +83,16 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
             }
         }
     
+        @objc func fetchCoreDataObjectsWithNotification(notification: NSNotification) {
+            dataService.instance.fetchCoreDataObjects()
+            categories = dataService.instance.categories
+            categoriesCollectionView.reloadData()
+        }
+    
+    //******************************************************************
+    //MARK: Automatically select centered date
+    //******************************************************************
+    
         func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
                 let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: (scrollView.center.y + scrollView.contentOffset.y))
                 print(center)
@@ -97,12 +105,24 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         }
     
     
+    //******************************************************************
+    //MARK: Little UI Tweaks :)
+    //******************************************************************
+    
     func changeLabelStyle() {
         windowNameLabel.text = "EXPENSE"
         windowNameLabel.textColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 0.7503301056)
         windowNameLabel.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         saveButton.layer.cornerRadius = 5
     }
+    
+    
+    
+    
+    
+    //******************************************************************
+    //MARK: CollectionView related code
+    //******************************************************************
     
     
     
@@ -133,7 +153,6 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         if collectionView == CalendarCollectionView {
         print("Selected item at indexPath \(indexPath.row)")
         let selectedDate = dates[indexPath.row]
-//        let selectedWeekDay = weekDays[indexPath.row]
         print("Date chosen is \(selectedDate)")
         } else {
             let category = categories[indexPath.row]
@@ -160,6 +179,11 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
 
 
 }
+
+
+//******************************************************************
+//MARK: Extension of ExpenseViewController
+//******************************************************************
 
 extension ExpenseVC: UITextFieldDelegate {
     
