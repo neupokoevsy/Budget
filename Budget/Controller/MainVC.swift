@@ -53,6 +53,24 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
             }
     
+    //**************************************
+    //MARK: Hiding add button when scrolling
+    //**************************************
+    
+    var lastContentOffset: CGFloat = 0
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.lastContentOffset = scrollView.contentOffset.y
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if self.lastContentOffset < scrollView.contentOffset.y {
+            addButton?.isHidden = true
+        } else if self.lastContentOffset > scrollView.contentOffset.y {
+            addButton?.isHidden = false
+        }
+    }
+    
     
     //******************************************************************
     //MARK: TableView for records
