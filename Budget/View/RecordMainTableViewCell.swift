@@ -14,11 +14,17 @@ class RecordMainTableViewCell: UITableViewCell {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var currencyLabel: UILabel!
     
     func configureCell(record: Record) {
         self.amountLabel.text = String(describing: record.amount)
         self.categoryLabel.text = record.category
         self.typeLabel.text = record.type
+        
+        let locale = Locale.current
+        let currencySymbol = locale.currencySymbol!
+        let currencyCode = locale.currencyCode!
+        currencyLabel.text = currencySymbol
         
         let date = record.date
         let dateFormatter = DateFormatter()

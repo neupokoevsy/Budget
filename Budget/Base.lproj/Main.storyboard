@@ -29,49 +29,71 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="83" translatesAutoresizingMaskIntoConstraints="NO" id="4Yk-o1-D8z">
-                                                    <rect key="frame" x="24.5" y="9.5" width="326" height="71.5"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="70" translatesAutoresizingMaskIntoConstraints="NO" id="4Yk-o1-D8z">
+                                                    <rect key="frame" x="10" y="5" width="355" height="80"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="gii-jI-3qB">
-                                                            <rect key="frame" x="0.0" y="0.0" width="121.5" height="71.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="231.5" height="80"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 Sep 2020" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFy-2P-hkC">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="118.5" height="27.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="118.5" height="36"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRY-bF-5p5">
-                                                                    <rect key="frame" x="0.0" y="27.5" width="57" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="36" width="57" height="20.5"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="20.5" id="47P-om-sSY"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Utility Payments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvs-LK-5yN">
-                                                                    <rect key="frame" x="0.0" y="48" width="121.5" height="23.5"/>
+                                                                    <rect key="frame" x="0.0" y="56.5" width="121.5" height="23.5"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="23.5" id="27W-qx-fvz"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LjM-T1-8vf">
-                                                            <rect key="frame" x="204.5" y="0.0" width="121.5" height="71.5"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="33"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSY-6O-ohV">
+                                                            <rect key="frame" x="301.5" y="0.0" width="53.5" height="80"/>
+                                                            <subviews>
+                                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AED" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgv-Ra-PZQ">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="80"/>
+                                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="200" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LjM-T1-8vf">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="53.5" height="80"/>
+                                                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="30"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="4Yk-o1-D8z" secondAttribute="bottom" constant="5" id="Bca-n1-DGo"/>
+                                                <constraint firstItem="4Yk-o1-D8z" firstAttribute="leading" secondItem="Sd8-jx-Xbi" secondAttribute="leading" constant="10" id="Cbx-GF-cCW"/>
+                                                <constraint firstAttribute="trailing" secondItem="4Yk-o1-D8z" secondAttribute="trailing" constant="10" id="G5F-jF-yeW"/>
                                                 <constraint firstItem="4Yk-o1-D8z" firstAttribute="centerX" secondItem="Sd8-jx-Xbi" secondAttribute="centerX" id="cSZ-yu-k5t"/>
                                                 <constraint firstItem="4Yk-o1-D8z" firstAttribute="centerY" secondItem="Sd8-jx-Xbi" secondAttribute="centerY" id="gNj-QU-Fw8"/>
+                                                <constraint firstItem="4Yk-o1-D8z" firstAttribute="top" secondItem="Sd8-jx-Xbi" secondAttribute="top" constant="5" id="nbY-vz-uvv"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="amountLabel" destination="LjM-T1-8vf" id="RqS-RN-9HF"/>
                                             <outlet property="categoryLabel" destination="dvs-LK-5yN" id="OPv-6a-LGb"/>
+                                            <outlet property="currencyLabel" destination="Mgv-Ra-PZQ" id="hja-lR-7WP"/>
                                             <outlet property="dateLabel" destination="FFy-2P-hkC" id="IvN-Ax-WbA"/>
                                             <outlet property="typeLabel" destination="cRY-bF-5p5" id="mrF-iR-bqY"/>
                                         </connections>
@@ -232,7 +254,7 @@
                                             <outlet property="delegate" destination="c6t-AX-3lr" id="vUR-oG-ENF"/>
                                         </connections>
                                     </collectionView>
-                                    <textField opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Youc comment to this record" textAlignment="natural" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gsm-np-QDv">
+                                    <textField opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Youc comment for this record" textAlignment="natural" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gsm-np-QDv">
                                         <rect key="frame" x="0.0" y="208.5" width="335" height="34"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -328,7 +350,7 @@
                                     <action selector="saveButtonPressed:" destination="CaQ-g9-TfM" eventType="touchUpInside" id="dyv-Ie-L8Q"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Youc comment to this record" textAlignment="natural" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rMy-zx-uJC">
+                            <textField opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Youc comment for this record" textAlignment="natural" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rMy-zx-uJC">
                                 <rect key="frame" x="20" y="167.5" width="335" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="SVC-Sg-UP5"/>

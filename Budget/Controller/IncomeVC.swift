@@ -44,7 +44,7 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
             self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
             self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
             self.hideKeyboardWhenTappedAround()
-
+            date = Date()
 
             print("Current date index is: \(currentDate)")
         }
@@ -104,8 +104,7 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
             print("Date chosen is \(selectedDate)")
             let formatter = DateFormatter()
             formatter.dateFormat = "YYYY-MM-DD"
-            let currentlySelectedDate = dataService.instance.arrayOfDatesForCoreData()[indexPath.row
-            ]
+            let currentlySelectedDate = dataService.instance.arrayOfDatesForCoreData()[indexPath.row]
             date = formatter.date(from: currentlySelectedDate) ?? Date()
         }
 

@@ -28,7 +28,6 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         dataService.instance.fetchCoreDataRecords()
         recordsFetched = dataService.instance.records
         NotificationCenter.default.addObserver(self, selector: #selector(fetchRecordsWithNotification(notification:)), name: NSNotification.Name(rawValue: "NewRecordAdded"), object: nil)
-
     }
     
     
@@ -55,6 +54,10 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             }
     
     
+    //******************************************************************
+    //MARK: TableView for records
+    //******************************************************************
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         recordsFetched.count
     }
@@ -77,13 +80,6 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         return swipeConfig
     }
     
-    @objc func fetchRecordsWithNotification(notification: NSNotification) {
-        dataService.instance.fetchCoreDataRecords()
-        recordsFetched = dataService.instance.records
-        recordsView.reloadData()
-    }
-    
-    
     func contextualDeleteAction(forRowAtIndexPath indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "DELETE") { (UIContextualAction, MainVC, completionHandler: (Bool) -> Void) in
             self.removeRecord(atIndexPath: indexPath)
@@ -94,6 +90,21 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
         return action
     }
+    
+    //******************************************************************
+    //MARK: Fetch CoreData when receive notification from other VC's
+    //******************************************************************
+    
+    @objc func fetchRecordsWithNotification(notification: NSNotification) {
+        dataService.instance.fetchCoreDataRecords()
+        recordsFetched = dataService.instance.records
+        recordsView.reloadData()
+    }
+    
+    //******************************************************************
+    //MARK: Delete selected CoreData record
+    //******************************************************************
+    
     
     func removeRecord(atIndexPath indexPath: IndexPath) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext

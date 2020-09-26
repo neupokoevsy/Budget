@@ -58,6 +58,7 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
         self.setSelectedItemFromScrollView(CalendarCollectionView)
         self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
+        date = Date()
     }
     
     
@@ -120,7 +121,6 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                     CalendarCollectionView.scrollToItem(at: index!, at: .centeredHorizontally, animated: true)
                     self.CalendarCollectionView.selectItem(at: index, animated: true, scrollPosition: [])
                     self.selectedDateIndex = (index?.row)!
-                    self.CalendarCollectionView.vibrate()
                     let formatter = DateFormatter()
                     formatter.dateFormat = "YYYY-MM-DD"
                     let currentlySelectedDate = dataService.instance.arrayOfDatesForCoreData()[selectedDateIndex]
