@@ -137,7 +137,7 @@ class dataService {
                 return
             }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
-        let sort = NSSortDescriptor(key: "date", ascending: true)
+        let sort = NSSortDescriptor(key: "date", ascending: false)
         fetchRequest.sortDescriptors = [sort]
         do {
             records = try managedContext.fetch(fetchRequest) as! [Record]

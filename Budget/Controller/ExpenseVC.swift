@@ -59,7 +59,6 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         NotificationCenter.default.addObserver(self, selector: #selector(fetchCategoriesWithNotification(notification:)), name: NSNotification.Name(rawValue: "Update"), object: nil)
         currentDate = dataService.instance.currentDateIndex
         indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
-        print("IndexPATHForFirstRow \(indexPathForFirstRow)")
         self.setSelectedItemFromScrollView(CalendarCollectionView)
         self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
     }
@@ -109,6 +108,8 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     //******************************************************************
     
         func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
+                self.CalendarCollectionView.setNeedsLayout()
+                self.CalendarCollectionView.layoutIfNeeded()
                 let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: (scrollView.center.y + scrollView.contentOffset.y))
                 print(center)
                 let index = CalendarCollectionView.indexPathForItem(at: center)
@@ -117,8 +118,7 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                     self.CalendarCollectionView.selectItem(at: index, animated: true, scrollPosition: [])
                     self.selectedDate = (index?.row)!
                     print("Selected date index is: \(selectedDate)")
-                    self.view.setNeedsLayout()
-                    self.view.layoutIfNeeded()
+
                 }
         }
     

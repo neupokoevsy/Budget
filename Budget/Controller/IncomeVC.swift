@@ -74,8 +74,8 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
                         self.CalendarCollectionView.selectItem(at: index, animated: true, scrollPosition: [])
                         self.selectedDate = (index?.row)!
                         print("Selected date index is: \(selectedDate)")
-                        self.view.setNeedsLayout()
-                        self.view.layoutIfNeeded()
+                        self.CalendarCollectionView.setNeedsLayout()
+                        self.CalendarCollectionView.layoutIfNeeded()
                     }
             }
     
