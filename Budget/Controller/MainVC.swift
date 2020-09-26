@@ -106,7 +106,7 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             try managedContext.save()
             dataService.instance.fetchCoreDataRecords()
             self.recordsFetched = dataService.instance.records
-            print("successfully removed item at \(indexPath.row)")
+//            print("successfully removed item at \(indexPath.row)")
         } catch {
             debugPrint("Could not remove: \(error.localizedDescription)")
         }

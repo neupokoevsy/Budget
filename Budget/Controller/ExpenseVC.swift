@@ -18,10 +18,9 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     //******************************************************************
 
     var dates = [String]()
-    var datesForCoreData = [String]()
     var weekDays = [String]()
     var months = [String]()
-    var selectedDate: Int = 0
+    var selectedDateIndex: Int = 0
     var currentDate: Int = 0
     var categories: [Category] = []
     var indexPathForFirstRow = IndexPath(row: 0, section: 0)
@@ -53,8 +52,6 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         dataService.instance.fetchCoreDataCategories()
         categories = dataService.instance.categories
         dates = dataService.instance.arrayOfDates()
-        datesForCoreData = dataService.instance.arrayOfDatesForCoreData()
-        
         self.hideKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self, selector: #selector(fetchCategoriesWithNotification(notification:)), name: NSNotification.Name(rawValue: "Update"), object: nil)
         currentDate = dataService.instance.currentDateIndex
@@ -69,12 +66,18 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
 //            self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
 //        }
     
+//    override func viewDidAppear(_ animated: Bool) {
+//        indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
+//        self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+//        self.setSelectedItemFromScrollView(CalendarCollectionView)
+//    }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
-        self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
-    }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
+//        self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+//    }
     
     
     
@@ -116,9 +119,13 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                 if index != nil {
                     CalendarCollectionView.scrollToItem(at: index!, at: .centeredHorizontally, animated: true)
                     self.CalendarCollectionView.selectItem(at: index, animated: true, scrollPosition: [])
-                    self.selectedDate = (index?.row)!
-                    print("Selected date index is: \(selectedDate)")
-
+                    self.selectedDateIndex = (index?.row)!
+                    self.CalendarCollectionView.vibrate()
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "YYYY-MM-DD"
+                    let currentlySelectedDate = dataService.instance.arrayOfDatesForCoreData()[selectedDateIndex]
+                    date = formatter.date(from: currentlySelectedDate) ?? Date()
+                    print("Selected date index is: \(selectedDateIndex)")
                 }
         }
     
@@ -171,10 +178,12 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         if collectionView == CalendarCollectionView {
         print("Selected item at indexPath \(indexPath.row)")
         let selectedDate = dates[indexPath.row]
+        let adjustedSelectedDate = dates[selectedDateIndex]
+        print("Adjusted selected date is: \(adjustedSelectedDate), and selected date is: \(selectedDate)")
         print("Date chosen is \(selectedDate)")
             let formatter = DateFormatter()
             formatter.dateFormat = "YYYY-MM-DD"
-            let currentlySelectedDate = datesForCoreData[indexPath.row]
+            let currentlySelectedDate = dataService.instance.arrayOfDatesForCoreData()[indexPath.row]
             date = formatter.date(from: currentlySelectedDate) ?? Date()
         } else {
             let category = categories[indexPath.row]

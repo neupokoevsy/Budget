@@ -17,7 +17,7 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     var dates = [String]()
     var weekDays = [String]()
     var months = [String]()
-    var selectedDate: Int = 0
+    var selectedDateIndex: Int = 0
     var currentDate: Int = 0
     var indexPathForFirstRow = IndexPath(row: 0, section: 0)
     var date = Date()
@@ -66,16 +66,20 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     //******************************************************************
         
             func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
+                    self.CalendarCollectionView.setNeedsLayout()
+                    self.CalendarCollectionView.layoutIfNeeded()
                     let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: (scrollView.center.y + scrollView.contentOffset.y)-50)
                     print(center)
                     let index = CalendarCollectionView.indexPathForItem(at: center)
                     if index != nil {
                         CalendarCollectionView.scrollToItem(at: index!, at: .centeredHorizontally, animated: true)
                         self.CalendarCollectionView.selectItem(at: index, animated: true, scrollPosition: [])
-                        self.selectedDate = (index?.row)!
-                        print("Selected date index is: \(selectedDate)")
-                        self.CalendarCollectionView.setNeedsLayout()
-                        self.CalendarCollectionView.layoutIfNeeded()
+                        self.selectedDateIndex = (index?.row)!
+                        print("Selected date index is: \(selectedDateIndex)")
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "YYYY-MM-DD"
+                        let currentlySelectedDate = dataService.instance.arrayOfDatesForCoreData()[selectedDateIndex]
+                        date = formatter.date(from: currentlySelectedDate) ?? Date()
                     }
             }
     
