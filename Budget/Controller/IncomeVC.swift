@@ -19,6 +19,10 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     var months = [String]()
     var selectedDate: Int = 0
     var currentDate: Int = 0
+    var indexPathForFirstRow = IndexPath(row: 0, section: 0)
+    var date = Date()
+    var amount: Double = 0.0
+    let type: String = "Income"
     
     //******************************************************************
     //MARK: UI Outlets
@@ -35,7 +39,7 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
             changeLabelStyle()
             dates = dataService.instance.arrayOfDates()
             currentDate = dataService.instance.currentDateIndex
-            let indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
+            indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
             self.setSelectedItemFromScrollView(CalendarCollectionView)
             self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
             self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
@@ -44,13 +48,6 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
 
             print("Current date index is: \(currentDate)")
         }
-    
-    override func viewDidLayoutSubviews() {
-        let indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
-        self.setSelectedItemFromScrollView(CalendarCollectionView)
-        self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
-        self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
-    }
     
     //******************************************************************
     //MARK: Again little UI Tweaks :)
@@ -69,7 +66,7 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     //******************************************************************
         
             func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
-                    let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: (scrollView.center.y + scrollView.contentOffset.y))
+                    let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: (scrollView.center.y + scrollView.contentOffset.y)-50)
                     print(center)
                     let index = CalendarCollectionView.indexPathForItem(at: center)
                     if index != nil {
@@ -77,6 +74,8 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
                         self.CalendarCollectionView.selectItem(at: index, animated: true, scrollPosition: [])
                         self.selectedDate = (index?.row)!
                         print("Selected date index is: \(selectedDate)")
+                        self.view.setNeedsLayout()
+                        self.view.layoutIfNeeded()
                     }
             }
     
@@ -99,6 +98,11 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
             print("Selected item at indexPath \(indexPath.row)")
             let selectedDate = dates[indexPath.row]
             print("Date chosen is \(selectedDate)")
+            let formatter = DateFormatter()
+            formatter.dateFormat = "YYYY-MM-DD"
+            let currentlySelectedDate = dataService.instance.arrayOfDatesForCoreData()[indexPath.row
+            ]
+            date = formatter.date(from: currentlySelectedDate) ?? Date()
         }
 
         func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -109,7 +113,28 @@ class IncomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
             setSelectedItemFromScrollView(CalendarCollectionView)
         }
         
-        
+    @IBAction func saveButtonPressed(_ sender: UIButton) {
+        amount = Double(amountTextField.text!) ?? 0.0
+        if checkEntry() {
+            saveNewToCoreData()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewRecordAdded"), object: nil)
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    
+    func checkEntry() -> Bool {
+        if amount == 0.0 || amountTextField.text == "" {
+            amountTextField.shake()
+            amountTextField.vibrate()
+        } else if date == nil {
+            CalendarCollectionView.shake()
+            CalendarCollectionView.vibrate()
+        } else {
+            return true
+        }
+        return false
+    }
 
     }
 
@@ -127,6 +152,25 @@ extension IncomeVC: UITextFieldDelegate {
     
     func dismiss(_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
+    }
+    
+    func saveNewToCoreData() {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext
+            else {
+                return
+        }
+        let record = Record(context: managedContext)
+        record.amount = amount
+        record.date = date
+        record.type = type
+        record.comment = commentTextField.text ?? nil
+        do {
+            try managedContext.save()
+            print("Sucessfully saved new record")
+        }
+        catch {
+            debugPrint("Could not save data. Error: \(error.localizedDescription)")
+        }
     }
 }
 

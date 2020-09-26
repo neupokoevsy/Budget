@@ -18,12 +18,17 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     //******************************************************************
 
     var dates = [String]()
+    var datesForCoreData = [String]()
     var weekDays = [String]()
     var months = [String]()
     var selectedDate: Int = 0
     var currentDate: Int = 0
     var categories: [Category] = []
     var indexPathForFirstRow = IndexPath(row: 0, section: 0)
+    var amount: Double  = 0.0
+    var currentlySelectedCategory: String = ""
+    var date = Date()
+    let type: String = "Expense"
     
     
     //******************************************************************
@@ -39,29 +44,39 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     @IBOutlet weak var windowNameLabel: UILabel!
     
     
-    override func viewDidLayoutSubviews() {
-        indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
-        self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
-    }
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         changeLabelStyle()
-        dataService.instance.fetchCoreDataObjects()
+        dataService.instance.fetchCoreDataCategories()
         categories = dataService.instance.categories
         dates = dataService.instance.arrayOfDates()
+        datesForCoreData = dataService.instance.arrayOfDatesForCoreData()
         
         self.hideKeyboardWhenTappedAround()
-        NotificationCenter.default.addObserver(self, selector: #selector(fetchCoreDataObjectsWithNotification(notification:)), name: NSNotification.Name(rawValue: "Update"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(fetchCategoriesWithNotification(notification:)), name: NSNotification.Name(rawValue: "Update"), object: nil)
         currentDate = dataService.instance.currentDateIndex
         indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
         print("IndexPATHForFirstRow \(indexPathForFirstRow)")
         self.setSelectedItemFromScrollView(CalendarCollectionView)
         self.CalendarCollectionView.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
-        
-
     }
+    
+    
+//        override func viewDidLayoutSubviews() {
+//            indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
+//            self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+//        }
+    
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        indexPathForFirstRow = IndexPath(row: currentDate, section: 0)
+        self.CalendarCollectionView.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+    }
+    
     
     
     //******************************************************************
@@ -83,8 +98,8 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
             }
         }
     
-        @objc func fetchCoreDataObjectsWithNotification(notification: NSNotification) {
-            dataService.instance.fetchCoreDataObjects()
+        @objc func fetchCategoriesWithNotification(notification: NSNotification) {
+            dataService.instance.fetchCoreDataCategories()
             categories = dataService.instance.categories
             categoriesCollectionView.reloadData()
         }
@@ -101,6 +116,9 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                     CalendarCollectionView.scrollToItem(at: index!, at: .centeredHorizontally, animated: true)
                     self.CalendarCollectionView.selectItem(at: index, animated: true, scrollPosition: [])
                     self.selectedDate = (index?.row)!
+                    print("Selected date index is: \(selectedDate)")
+                    self.view.setNeedsLayout()
+                    self.view.layoutIfNeeded()
                 }
         }
     
@@ -154,9 +172,14 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         print("Selected item at indexPath \(indexPath.row)")
         let selectedDate = dates[indexPath.row]
         print("Date chosen is \(selectedDate)")
+            let formatter = DateFormatter()
+            formatter.dateFormat = "YYYY-MM-DD"
+            let currentlySelectedDate = datesForCoreData[indexPath.row]
+            date = formatter.date(from: currentlySelectedDate) ?? Date()
         } else {
             let category = categories[indexPath.row]
             print("Selected category is: \(category.title!)")
+            currentlySelectedCategory = category.title!
             if category.title! == "New Category" {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let addNewCategoryVc = storyboard.instantiateViewController(withIdentifier: "addNewCategoryVC") as! addNewCategoryVC
@@ -176,9 +199,41 @@ class ExpenseVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         setSelectedItemFromScrollView(CalendarCollectionView)
     }
-
+    
+    
+    func checkEntry() -> Bool {
+        if amount == 0.0 || amountTextField.text == "" {
+            amountTextField.shake()
+            amountTextField.vibrate()
+        } else if currentlySelectedCategory == nil || currentlySelectedCategory == "" || currentlySelectedCategory == "New Category" {
+            categoriesCollectionView.shake()
+            categoriesCollectionView.vibrate()
+        } else if date == nil {
+            CalendarCollectionView.shake()
+            CalendarCollectionView.vibrate()
+        } else {
+            return true
+        }
+        return false
+    }
+    
+    
+    
+    @IBAction func saveRecordButtonPressed(_ sender: UIButton) {
+        amount = Double(amountTextField.text!) ?? 0.0
+        if checkEntry() {
+            saveNewRecordsToCoreData()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewRecordAdded"), object: nil)
+            dismiss(animated: true, completion: nil)
+        } else {
+            print("ENTER DETAILS")
+        }
+    }
+    
 
 }
+
+
 
 
 //******************************************************************
@@ -194,5 +249,31 @@ extension ExpenseVC: UITextFieldDelegate {
     
     func dismiss(_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
+    }
+    
+    //******************************************************************
+    //MARK: Saving new category to CoreData
+    //******************************************************************
+
+
+    func saveNewRecordsToCoreData() {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext
+            else {
+                return
+        }
+        let record = Record(context: managedContext)
+        record.amount = amount
+        record.category = currentlySelectedCategory
+        record.date = date
+        record.type = type
+        record.comment = commentTextField.text ?? nil
+        
+        do {
+            try managedContext.save()
+            print("Sucessfully saved new record")
+        }
+        catch {
+            debugPrint("Could not save data. Error: \(error.localizedDescription)")
+        }
     }
 }

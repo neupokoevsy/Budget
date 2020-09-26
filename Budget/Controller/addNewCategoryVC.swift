@@ -84,7 +84,7 @@ class addNewCategoryVC: UIViewController, UICollectionViewDelegate, UICollection
     @IBAction func addCategoryButton(_ sender: UIButton) {
         newCategoryTitle = newCategoryNameTextField.text!
         if newCategoryTitle != nil && newCategoryTitle != "" {
-            saveToCoreData()
+            saveNewCategoriesToCoreData()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Update"), object: nil)
             dismiss(animated: true, completion: nil)
         } else {
@@ -98,7 +98,7 @@ class addNewCategoryVC: UIViewController, UICollectionViewDelegate, UICollection
     //******************************************************************
     
     
-    func saveToCoreData() {
+    func saveNewCategoriesToCoreData() {
         guard let managedContext = appDelegate?.persistentContainer.viewContext
             else {
                 return

@@ -23,6 +23,8 @@
 		CE5B7B0E24F57D4400F10181 /* Budget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE5B7B0C24F57D4400F10181 /* Budget.xcdatamodeld */; };
 		CE5B7B1024F57D4500F10181 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5B7B0F24F57D4500F10181 /* Assets.xcassets */; };
 		CE5B7B1324F57D4500F10181 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE5B7B1124F57D4500F10181 /* LaunchScreen.storyboard */; };
+		CECB8C67251F40B400CEB40C /* RecordMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB8C66251F40B400CEB40C /* RecordMainTableViewCell.swift */; };
+		CEFDB1B52519464F004EF56B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDB1B42519464F004EF56B /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		CE5B7B0F24F57D4500F10181 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE5B7B1224F57D4500F10181 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE5B7B1424F57D4500F10181 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CECB8C66251F40B400CEB40C /* RecordMainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMainTableViewCell.swift; sourceTree = "<group>"; };
+		CEFDB1B42519464F004EF56B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 				CE223A9924F58CD000B48ABC /* CalendarViewCell.swift */,
 				A377B3432502906C007E8B7B /* CategoryViewCell.swift */,
 				CE4962D9250D2FB30076DCCD /* NewCategoryCollectionViewCell.swift */,
+				CECB8C66251F40B400CEB40C /* RecordMainTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -125,6 +130,7 @@
 				CE5B7B0524F57D4400F10181 /* SceneDelegate.swift */,
 				CE5B7B0324F57D4400F10181 /* AppDelegate.swift */,
 				CE223A9324F57EC300B48ABC /* DataService.swift */,
+				CEFDB1B42519464F004EF56B /* Extensions.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -210,9 +216,11 @@
 				CE5B7B0E24F57D4400F10181 /* Budget.xcdatamodeld in Sources */,
 				CE4962D8250D2B8B0076DCCD /* addNewCategoryVC.swift in Sources */,
 				CE223A9824F58C1000B48ABC /* ExpenseVC.swift in Sources */,
+				CECB8C67251F40B400CEB40C /* RecordMainTableViewCell.swift in Sources */,
 				A358C93624FEDFBA00823974 /* AddRecordVC.swift in Sources */,
 				CE223A9A24F58CD000B48ABC /* CalendarViewCell.swift in Sources */,
 				CE5B7B0624F57D4400F10181 /* SceneDelegate.swift in Sources */,
+				CEFDB1B52519464F004EF56B /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

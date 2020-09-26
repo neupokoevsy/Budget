@@ -21,6 +21,9 @@ class dataService {
     private(set) public var daysInMonth: Int = 0
     private(set) public var currentDateIndex: Int = 0
     public var categories: [Category] = []
+    public var records: [Record] = []
+    
+    
 
     //******************************************************************
     //MARK: Calendar related code
@@ -42,6 +45,24 @@ class dataService {
         print(currentDateIndex)
         currentDateIndex = find(value: formatter.string(from: today), in: dates)!
         return dates
+    }
+    
+    func arrayOfDatesForCoreData() -> [String] {
+        let today = Date()
+        let startDate = firstDayOfMonth()
+        formatter.dateFormat = "YYYY-MM-DD"
+        var datesForCoreData: [String] = [formatter.string(from: startDate)]
+        daysInMonth = numberOfDaysInMonth()
+        for i in -30 ... 30 {
+            offset.day = i+1
+            let nextDay: Date? = calendar.date(byAdding: offset, to: startDate)
+            let nextDayString = formatter.string(from: nextDay!)
+            datesForCoreData.append(nextDayString)
+        }
+        datesForCoreData.remove(at: 0)
+        print(currentDateIndex)
+        currentDateIndex = find(value: formatter.string(from: today), in: datesForCoreData)!
+        return datesForCoreData
     }
     
     func firstDayOfMonth() -> Date {
@@ -96,7 +117,7 @@ class dataService {
             }
             }
 
-        func fetchCoreDataObjects() {
+        func fetchCoreDataCategories() {
             self.fetchCategories { (complete) in
                 if categories.count == 0 {
                     print("NO CATEGORIES FOUND!")
@@ -105,6 +126,40 @@ class dataService {
                 }
             }
         }
+    
+    //******************************************************************
+    //MARK: Records related code (CoreData)
+    //******************************************************************
+    
+    func fetchRecords(completion: (_ complete: Bool) -> ()) {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext
+            else {
+                return
+            }
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
+        let sort = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [sort]
+        do {
+            records = try managedContext.fetch(fetchRequest) as! [Record]
+            print(records)
+            print("Fetched from CoreData Successfully")
+
+        }
+        catch
+            {
+            print("Could not fetch data: \(error.localizedDescription)")
+        }
+        }
+
+    func fetchCoreDataRecords() {
+        self.fetchRecords { (complete) in
+            if categories.count == 0 {
+                print("NO CATEGORIES FOUND!")
+            } else {
+                print("CATEGORIES FOUND")
+            }
+        }
+    }
     
     //******************************************************************
     //MARK: Available new categories only to select from

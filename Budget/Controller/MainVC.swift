@@ -12,24 +12,30 @@ import CoreData
 let appDelegate = UIApplication.shared.delegate as? AppDelegate
 
 
-class MainVC: UIViewController {
+class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    @IBOutlet weak var recordsView: UITableView!
+    
     
     var addButton: UIButton?
+    var recordsFetched: [Record] = []
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         adjustUI()
         self.navigationController?.view.addSubview(addButton!)
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.fetchCategoriesWithNotification(notification:)), name: NSNotification.Name(rawValue: "Update"), object: nil)
-//        fetchCoreDataObjects()
-//        deleteAllCategories()
-//        printAllCategories()
+        dataService.instance.fetchCoreDataRecords()
+        recordsFetched = dataService.instance.records
+        NotificationCenter.default.addObserver(self, selector: #selector(fetchRecordsWithNotification(notification:)), name: NSNotification.Name(rawValue: "NewRecordAdded"), object: nil)
+
     }
     
     
 
-
+    //******************************************************************
+    //MARK: AddButton creation and some UI adjustments
+    //******************************************************************
 
     
     func adjustUI() {
@@ -47,112 +53,67 @@ class MainVC: UIViewController {
             performSegue(withIdentifier: "addView", sender: self)
 
             }
-//
-//
-//
-//
-//
-//    func deleteAllCategories() {
-//        guard let managedContext = appDelegate?.persistentContainer.viewContext
-//            else {
-//                return
-//            }
-//        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Category")
-//        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-//        do {
-//            try managedContext.execute(deleteRequest)
-//            try managedContext.save()
-//        } catch {
-//            print("Could not delete data: \(error.localizedDescription)")
-//        }
-//    }
-//
-//
-//
-//
-//
-//    func fetchCategories(completion: (_ complete: Bool) -> ()) {
-//        guard let managedContext = appDelegate?.persistentContainer.viewContext
-//            else {
-//                return
-//            }
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
-//        let sort = NSSortDescriptor(key: "title", ascending: true)
-//        fetchRequest.sortDescriptors = [sort]
-//
-//        do {
-//            dataService.instance.categories = try managedContext.fetch(fetchRequest) as! [Category]
-//            print("Fetched from CoreData Successfully")
-//
-//        }
-//        catch
-//            {
-//            print("Could not fetch data: \(error.localizedDescription)")
-//        }
-//        }
-//
-//
-//
-//
-//
-//    func fetchCoreDataObjects() {
-//        self.fetchCategories { (complete) in
-//            if dataService.instance.categories.count == 0 {
-//                print("NO CATEGORIES FOUND!")
-//            } else {
-//                print("CATEGORIES FOUND")
-//            }
-//        }
-//    }
-//
-//
-//
-//    func save(completion: (_ finished: Bool ) -> ()) {
-//    guard let managedContext = appDelegate?.persistentContainer.viewContext
-//        else {
-//                return
-//                        }
-//    let category = Category(context: managedContext)
-//
-//    do {
-//        try managedContext.save()
-//        completion(true)
-//        print("Successfully saved data")
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Update"), object: nil)
-//    }
-//    catch {
-//        debugPrint("Could not save. Error: \(error.localizedDescription)")
-//        completion(false)
-//    }
-//
-//}
-//
-//
-//
-//
-//    func saveCategories() {
-//            self.save(completion: {(complete) in
-//                     if complete {
-//                         dismiss(animated: true, completion: nil)
-//                     }
-//                 })
-//        }
-//}
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        recordsFetched.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = recordsView.dequeueReusableCell(withIdentifier: "recordsCell") as? RecordMainTableViewCell
+        else {
+            return UITableViewCell()
+        }
+        let record = recordsFetched[indexPath.row]
+        cell.configureCell(record: record)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = self.contextualDeleteAction(forRowAtIndexPath: indexPath)
+        let swipeConfig = UISwipeActionsConfiguration(actions: [deleteAction])
+        swipeConfig.performsFirstActionWithFullSwipe = true
+        deleteAction.backgroundColor = UIColor.red
+        return swipeConfig
+    }
+    
+    @objc func fetchRecordsWithNotification(notification: NSNotification) {
+        dataService.instance.fetchCoreDataRecords()
+        recordsFetched = dataService.instance.records
+        recordsView.reloadData()
+    }
+    
+    
+    func contextualDeleteAction(forRowAtIndexPath indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .destructive, title: "DELETE") { (UIContextualAction, MainVC, completionHandler: (Bool) -> Void) in
+            self.removeRecord(atIndexPath: indexPath)
+            self.recordsView.deleteRows(at: [indexPath], with: .fade)
+            dataService.instance.fetchCoreDataRecords()
+            self.recordsFetched = dataService.instance.records
+            completionHandler(true)
+        }
+        return action
+    }
+    
+    func removeRecord(atIndexPath indexPath: IndexPath) {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext
+        else
+        {
+            return
+        }
+        managedContext.delete(recordsFetched[indexPath.row])
+        do {
+            try managedContext.save()
+            dataService.instance.fetchCoreDataRecords()
+            self.recordsFetched = dataService.instance.records
+            print("successfully removed item at \(indexPath.row)")
+        } catch {
+            debugPrint("Could not remove: \(error.localizedDescription)")
+        }
+        
+    }
+
 
 }
 
-//******************************************************************
-//MARK: Extension for all VC's to add gesture to dismiss keyboard
-//******************************************************************
 
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
