@@ -59,13 +59,11 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
             }
     
-<<<<<<< HEAD
     @IBAction func statisticsButtonPressed(_ sender: Any) {
         addButton?.isHidden = true
         performSegue(withIdentifier: "showStatisticsVC", sender: self)
     }
     
-=======
     //**************************************
     //MARK: Hiding add button when scrolling
     //**************************************
@@ -83,7 +81,6 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             addButton?.isHidden = false
         }
     }
->>>>>>> be64007f5b9a3fe8d55e4b78a517d5d23546a194
     
     
     //******************************************************************
