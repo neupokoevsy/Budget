@@ -12,6 +12,11 @@ public var dataReceivedForGraph = [Double]()
 
 class StatisticsVC: UIViewController {
     
+    //Label Outlets
+    @IBOutlet weak var maxLabel: UILabel!
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var graphView: StatisticsGraphView!
+    
     var filteredRecordsByCategories = [RecordParsed]()
     var filteredRecordsWithNonZeroAmount = [RecordParsed]()
     let records = dataService.instance.records
@@ -23,6 +28,9 @@ class StatisticsVC: UIViewController {
         filterRecordsByCategories()
         filterZeroAmount()
         print(dataReceivedForGraph)
+        setupGraphDisplay()
+        
+        
 //        getDoublesFromRecordsParsed()
 //        print(filteredRecordsByCategories)
         // Do any additional setup after loading the view.
@@ -57,10 +65,37 @@ class StatisticsVC: UIViewController {
     }
     
     func filterZeroAmount() {
+        
         for data in filteredRecordsWithNonZeroAmount{
 //            print(data.amount)
             if data.amount != 0 {
                 dataReceivedForGraph.append(data.amount)
+            }
+        }
+    }
+    
+    func setupGraphDisplay() {
+        let maxMonthIndex = stackView.arrangedSubviews.count - 1
+        
+        graphView.setNeedsDisplay()
+        
+        //Max label to be updated
+        
+        let maximum = dataReceivedForGraph.max()!
+        print(maximum)
+
+        maxLabel.text = "\(maximum)"
+        
+        let today = Date()
+        let calenendar = Calendar.current
+        
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMM")
+        
+        for i in 0...maxMonthIndex {
+            if let date = calenendar.date(byAdding: .month, value: -i, to: today),
+               let label = stackView.arrangedSubviews[maxMonthIndex - i] as? UILabel {
+                label.text = formatter.string(from: date)
             }
         }
     }

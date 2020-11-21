@@ -8,9 +8,12 @@
 
 import UIKit
 
+
 @IBDesignable
 
+
 class StatisticsGraphView: UIView {
+    
     
     var graphPoints = [0.0]
 
@@ -32,6 +35,7 @@ class StatisticsGraphView: UIView {
     override func draw(_ rect: CGRect) {
         
         graphPoints = dataReceivedForGraph
+
         
         let width = rect.width
         let height = rect.height
@@ -125,6 +129,7 @@ class StatisticsGraphView: UIView {
         
         context.drawLinearGradient(gradient, start: graphStartPoint, end: graphEndPoint, options: [])
         context.restoreGState()
+        
         
         graphPath.lineWidth = 2.0
         graphPath.stroke()

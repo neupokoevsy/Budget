@@ -35,8 +35,6 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         addButton?.isHidden = false
     }
     
-    
-    
 
     //******************************************************************
     //MARK: AddButton creation and some UI adjustments
