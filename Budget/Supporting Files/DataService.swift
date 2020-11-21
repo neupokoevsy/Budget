@@ -141,9 +141,6 @@ class dataService {
         fetchRequest.sortDescriptors = [sort]
         do {
             records = try managedContext.fetch(fetchRequest) as! [Record]
-//            print(records)
-//            print("Fetched from CoreData Successfully")
-
         }
         catch
             {

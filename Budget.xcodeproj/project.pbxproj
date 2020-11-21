@@ -10,6 +10,9 @@
 		A358C93624FEDFBA00823974 /* AddRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358C93524FEDFBA00823974 /* AddRecordVC.swift */; };
 		A377B3442502906C007E8B7B /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377B3432502906C007E8B7B /* CategoryViewCell.swift */; };
 		A3FB237324FEDB4300B986C5 /* IncomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FB237224FEDB4300B986C5 /* IncomeVC.swift */; };
+		CE0AD6DD256934A6000800E6 /* StatisticsGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0AD6DC256934A6000800E6 /* StatisticsGraphView.swift */; };
+		CE0AD6E525693FE6000800E6 /* StatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0AD6E425693FE6000800E6 /* StatisticsVC.swift */; };
+		CE0AD6E825696015000800E6 /* StatisticsRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0AD6E725696015000800E6 /* StatisticsRecord.swift */; };
 		CE223A9424F57EC300B48ABC /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE223A9324F57EC300B48ABC /* DataService.swift */; };
 		CE223A9624F57F5300B48ABC /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE223A9524F57F5300B48ABC /* CategoryModel.swift */; };
 		CE223A9824F58C1000B48ABC /* ExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE223A9724F58C1000B48ABC /* ExpenseVC.swift */; };
@@ -31,6 +34,9 @@
 		A358C93524FEDFBA00823974 /* AddRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordVC.swift; sourceTree = "<group>"; };
 		A377B3432502906C007E8B7B /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		A3FB237224FEDB4300B986C5 /* IncomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeVC.swift; sourceTree = "<group>"; };
+		CE0AD6DC256934A6000800E6 /* StatisticsGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsGraphView.swift; sourceTree = "<group>"; };
+		CE0AD6E425693FE6000800E6 /* StatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsVC.swift; sourceTree = "<group>"; };
+		CE0AD6E725696015000800E6 /* StatisticsRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsRecord.swift; sourceTree = "<group>"; };
 		CE223A9324F57EC300B48ABC /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		CE223A9524F57F5300B48ABC /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		CE223A9724F58C1000B48ABC /* ExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseVC.swift; sourceTree = "<group>"; };
@@ -97,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				CE223A9524F57F5300B48ABC /* CategoryModel.swift */,
+				CE0AD6E725696015000800E6 /* StatisticsRecord.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -108,6 +115,7 @@
 				A377B3432502906C007E8B7B /* CategoryViewCell.swift */,
 				CE4962D9250D2FB30076DCCD /* NewCategoryCollectionViewCell.swift */,
 				CECB8C66251F40B400CEB40C /* RecordMainTableViewCell.swift */,
+				CE0AD6DC256934A6000800E6 /* StatisticsGraphView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -120,6 +128,7 @@
 				A3FB237224FEDB4300B986C5 /* IncomeVC.swift */,
 				A358C93524FEDFBA00823974 /* AddRecordVC.swift */,
 				CE4962D7250D2B8B0076DCCD /* addNewCategoryVC.swift */,
+				CE0AD6E425693FE6000800E6 /* StatisticsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -207,10 +216,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A377B3442502906C007E8B7B /* CategoryViewCell.swift in Sources */,
+				CE0AD6E825696015000800E6 /* StatisticsRecord.swift in Sources */,
+				CE0AD6E525693FE6000800E6 /* StatisticsVC.swift in Sources */,
 				CE5B7B0824F57D4400F10181 /* MainVC.swift in Sources */,
 				A3FB237324FEDB4300B986C5 /* IncomeVC.swift in Sources */,
 				CE4962DA250D2FB30076DCCD /* NewCategoryCollectionViewCell.swift in Sources */,
 				CE223A9624F57F5300B48ABC /* CategoryModel.swift in Sources */,
+				CE0AD6DD256934A6000800E6 /* StatisticsGraphView.swift in Sources */,
 				CE223A9424F57EC300B48ABC /* DataService.swift in Sources */,
 				CE5B7B0424F57D4400F10181 /* AppDelegate.swift in Sources */,
 				CE5B7B0E24F57D4400F10181 /* Budget.xcdatamodeld in Sources */,

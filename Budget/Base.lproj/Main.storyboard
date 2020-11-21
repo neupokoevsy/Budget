@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OLR-br-thc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OLR-br-thc">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -114,10 +114,18 @@
                             <constraint firstItem="8cI-gN-oz6" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="cmE-pJ-tDc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="3xa-no-qni"/>
+                    <navigationItem key="navigationItem" id="3xa-no-qni">
+                        <barButtonItem key="rightBarButtonItem" title="Statistics" id="Q95-4h-xCB">
+                            <connections>
+                                <action selector="statisticsButtonPressed:" destination="BYZ-38-t0r" id="cLV-eR-ePg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="recordsView" destination="8cI-gN-oz6" id="0Lt-eq-0pK"/>
+                        <outlet property="statisticsButton" destination="Q95-4h-xCB" id="hfp-2q-NDq"/>
                         <segue destination="uXF-mn-SJX" kind="presentation" identifier="addView" id="1WM-mO-X5V"/>
+                        <segue destination="IjK-ab-cny" kind="show" identifier="showStatisticsVC" id="EGJ-yA-0cc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -540,6 +548,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BHx-cK-PdO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3024.8000000000002" y="903.59820089955031"/>
+        </scene>
+        <!--StatisticsVC-->
+        <scene sceneID="hJJ-xf-pm5">
+            <objects>
+                <viewController id="IjK-ab-cny" customClass="StatisticsVC" customModule="Budget" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mOw-SP-BOu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MG1-xU-2BG" customClass="StatisticsGraphView" customModule="Budget" customModuleProvider="target">
+                                <rect key="frame" x="15" y="60" width="345" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="040-Ag-2O3"/>
+                                    <constraint firstAttribute="width" constant="345" id="Chd-pV-yxC"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" red="0.92679238320000001" green="0.43859916929999998" blue="0.18028649690000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" red="0.99611777069999996" green="0.99997395280000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="TD4-JL-RVZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="MG1-xU-2BG" firstAttribute="top" secondItem="mOw-SP-BOu" secondAttribute="top" constant="60" id="ORt-jW-T8T"/>
+                            <constraint firstItem="MG1-xU-2BG" firstAttribute="leading" secondItem="TD4-JL-RVZ" secondAttribute="leading" constant="15" id="RBY-fs-J2v"/>
+                            <constraint firstItem="TD4-JL-RVZ" firstAttribute="trailing" secondItem="MG1-xU-2BG" secondAttribute="trailing" constant="15" id="Rq2-On-yin"/>
+                            <constraint firstItem="MG1-xU-2BG" firstAttribute="centerX" secondItem="mOw-SP-BOu" secondAttribute="centerX" id="Uaf-M8-K3J"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="elZ-7K-BbU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QzQ-NY-uV1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2080.8000000000002" y="-624.73763118440786"/>
         </scene>
         <!--Add RecordVC-->
         <scene sceneID="Pl6-Uu-j0K">

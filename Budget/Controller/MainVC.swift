@@ -17,6 +17,7 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var recordsView: UITableView!
     
     
+    @IBOutlet weak var statisticsButton: UIBarButtonItem!
     var addButton: UIButton?
     var recordsFetched: [Record] = []
     
@@ -29,6 +30,11 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         recordsFetched = dataService.instance.records
         NotificationCenter.default.addObserver(self, selector: #selector(fetchRecordsWithNotification(notification:)), name: NSNotification.Name(rawValue: "NewRecordAdded"), object: nil)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        addButton?.isHidden = false
+    }
+    
     
     
 
@@ -53,6 +59,13 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
             }
     
+<<<<<<< HEAD
+    @IBAction func statisticsButtonPressed(_ sender: Any) {
+        addButton?.isHidden = true
+        performSegue(withIdentifier: "showStatisticsVC", sender: self)
+    }
+    
+=======
     //**************************************
     //MARK: Hiding add button when scrolling
     //**************************************
@@ -70,6 +83,7 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             addButton?.isHidden = false
         }
     }
+>>>>>>> be64007f5b9a3fe8d55e4b78a517d5d23546a194
     
     
     //******************************************************************
