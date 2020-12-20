@@ -23,8 +23,10 @@ class RecordMainTableViewCell: UITableViewCell {
         
         let locale = Locale.current
         let currencySymbol = locale.currencySymbol!
-        let currencyCode = locale.currencyCode!
+//        let currencyCode = locale.currencyCode!
+        let currencyCode = "$"
         currencyLabel.text = currencySymbol
+        
         
         let date = record.date
         let dateFormatter = DateFormatter()

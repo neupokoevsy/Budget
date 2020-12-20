@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OLR-br-thc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OLR-br-thc">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -670,19 +670,30 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VZt-f5-R3N">
+                                <rect key="frame" x="73.5" y="313" width="228.5" height="41"/>
+                                <string key="text">Statistics will be shown 
+when you will have enough data...</string>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="TD4-JL-RVZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="VZt-f5-R3N" firstAttribute="centerX" secondItem="mOw-SP-BOu" secondAttribute="centerX" id="JjT-gf-cAw"/>
                             <constraint firstItem="MG1-xU-2BG" firstAttribute="top" secondItem="mOw-SP-BOu" secondAttribute="top" constant="60" id="ORt-jW-T8T"/>
                             <constraint firstItem="MG1-xU-2BG" firstAttribute="leading" secondItem="TD4-JL-RVZ" secondAttribute="leading" constant="15" id="RBY-fs-J2v"/>
                             <constraint firstItem="TD4-JL-RVZ" firstAttribute="trailing" secondItem="MG1-xU-2BG" secondAttribute="trailing" constant="15" id="Rq2-On-yin"/>
                             <constraint firstItem="MG1-xU-2BG" firstAttribute="centerX" secondItem="mOw-SP-BOu" secondAttribute="centerX" id="Uaf-M8-K3J"/>
+                            <constraint firstItem="VZt-f5-R3N" firstAttribute="centerY" secondItem="mOw-SP-BOu" secondAttribute="centerY" id="a44-Ez-rCx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="elZ-7K-BbU"/>
                     <connections>
                         <outlet property="graphView" destination="MG1-xU-2BG" id="RNs-4g-o7w"/>
+                        <outlet property="lowDataLbl" destination="VZt-f5-R3N" id="it3-cJ-qQo"/>
                         <outlet property="maxLabel" destination="vJC-Ta-G7P" id="SBg-of-1vD"/>
                         <outlet property="stackView" destination="28a-T9-Ulu" id="LEQ-WG-ltD"/>
                     </connections>

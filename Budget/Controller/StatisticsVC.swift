@@ -16,6 +16,7 @@ class StatisticsVC: UIViewController {
     @IBOutlet weak var maxLabel: UILabel!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var graphView: StatisticsGraphView!
+    @IBOutlet weak var lowDataLbl: UILabel!
     
     var filteredRecordsByCategories = [RecordParsed]()
     var filteredRecordsWithNonZeroAmount = [RecordParsed]()
@@ -29,6 +30,14 @@ class StatisticsVC: UIViewController {
         filterZeroAmount()
         print(dataReceivedForGraph)
         setupGraphDisplay()
+        
+        if dataReceivedForGraph.count >= 2 {
+            graphView.isHidden = false
+            lowDataLbl.isHidden = true
+        } else {
+            graphView.isHidden = true
+            lowDataLbl.isHidden = false
+        }
         
         
 //        getDoublesFromRecordsParsed()

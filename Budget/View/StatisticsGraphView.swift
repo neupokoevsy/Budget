@@ -11,7 +11,6 @@ import UIKit
 
 @IBDesignable
 
-
 class StatisticsGraphView: UIView {
     
     
@@ -35,7 +34,6 @@ class StatisticsGraphView: UIView {
     override func draw(_ rect: CGRect) {
         
         graphPoints = dataReceivedForGraph
-
         
         let width = rect.width
         let height = rect.height
